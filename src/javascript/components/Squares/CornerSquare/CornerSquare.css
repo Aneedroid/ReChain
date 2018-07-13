@@ -1,0 +1,39 @@
+.corner-square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 34px;
+}
+
+.corner-square:focus {
+    outline: none;
+}
+
+/* ----- Might not need Notification Bubble later ----- */
+
+.notify-bubble {
+    position: absolute;
+    transform: scaleY(0.5) scaleX(0.75);
+    top: -25px;
+    right: -12px;
+    padding: 2px 5px 2px 6px;
+    background-color: green;
+    color: tomato;
+    font-size: 0.65em;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px gray;
+  }
+
+  .align-ball-with-bubble {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+  }

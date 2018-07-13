@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Square.css';
-import Ball from '../Ball';
+import './SideSquare.css';
+import Ball from '../../Ball';
 
-class Square extends React.Component {
+class SideSquare extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -29,7 +29,7 @@ class Square extends React.Component {
 
   render() {
     return (
-      <button className="square" onClick={() => this.handleClick()}>
+      <button className="side-square" onClick={() => this.handleClick()}>
         {this.state.balls > 0 ? this.renderBalls() : null}
       </button>
     );
@@ -37,9 +37,9 @@ class Square extends React.Component {
 
 }
 
-Square.propTypes = {
+SideSquare.propTypes = {
   value: PropTypes.number,
   onClick: PropTypes.func
 };
 
-export default Square;
+export default SideSquare;
