@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import './CornerSquare.css';
-import Ball from '../../Ball';
+import './Square.css';
+import Ball from '../Ball';
 
-class CornerSquare extends React.Component {
+class Square extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,27 +23,26 @@ class CornerSquare extends React.Component {
   }
 
   renderBalls() {
-    const { ballCount, limit, chainReact } = this.props
+    const { ballCount, limit, chainReact, playerSquare } = this.props
     const cssClassName = ballCount > 1 ? 'notify-bubble' : 'no-bubble'
     if (ballCount > limit)
       chainReact(this.state.id)
     return (
       <div className='align-ball-with-bubble'>
         <span className={cssClassName}>
-          {/* {ballCount > limit ? chainReact(this.state.id) : null} */}
           {ballCount > 1 ? ballCount : null}
         </span>
         <div align='center'>
-          <Ball />
+          <Ball player={playerSquare} />
         </div>
       </div>
     );
   }
 
   render() {
-    const { id, ballCount } = this.props
+    const { ballCount, classname } = this.props
     return (
-      <button className="corner-square" onClick={() => this.handleClick()}>
+      <button className={classname} onClick={() => this.handleClick()}>
         {ballCount > 0 ? this.renderBalls() : null}
       </button>
     );
@@ -51,10 +50,10 @@ class CornerSquare extends React.Component {
 
 }
 
-CornerSquare.propTypes = {
+Square.propTypes = {
   id: PropTypes.number,
   onClick: PropTypes.func,
   initPlayground: PropTypes.func
 };
 
-export default CornerSquare;
+export default Square;

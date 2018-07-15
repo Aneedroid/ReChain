@@ -1,6 +1,6 @@
 import React from 'react';
 import './Board.css';
-import CornerSquare from '../Squares/CornerSquare/'
+import Square from '../Square/'
 
 
 class Board extends React.Component {
@@ -9,9 +9,10 @@ class Board extends React.Component {
     super(props);
   }
 
-  renderCornerSquare = (i) => {
+  renderSquare = (i) => {
+    const { classname } = this.props
     return (
-      <CornerSquare id={i} />
+      <Square id={i} classname={classname} />
     );
   };
 
@@ -19,44 +20,44 @@ class Board extends React.Component {
     return (
       <div className="centered">
         <div className="board-row">
-          {this.renderCornerSquare(0)}
-          {this.renderCornerSquare(1)}
-          {this.renderCornerSquare(2)}
-          {this.renderCornerSquare(3)}
-          {this.renderCornerSquare(4)}
-          {this.renderCornerSquare(5)}
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
         </div>
         <div className="board-row">
-          {this.renderCornerSquare(6)}
-          {this.renderCornerSquare(7)}
-          {this.renderCornerSquare(8)}
-          {this.renderCornerSquare(9)}
-          {this.renderCornerSquare(10)}
-          {this.renderCornerSquare(11)}
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+          {this.renderSquare(9)}
+          {this.renderSquare(10)}
+          {this.renderSquare(11)}
         </div>
         <div className="board-row">
-          {this.renderCornerSquare(12)}
-          {this.renderCornerSquare(13)}
-          {this.renderCornerSquare(14)}
-          {this.renderCornerSquare(15)}
-          {this.renderCornerSquare(16)}
-          {this.renderCornerSquare(17)}
+          {this.renderSquare(12)}
+          {this.renderSquare(13)}
+          {this.renderSquare(14)}
+          {this.renderSquare(15)}
+          {this.renderSquare(16)}
+          {this.renderSquare(17)}
         </div>
         <div className="board-row">
-          {this.renderCornerSquare(18)}
-          {this.renderCornerSquare(19)}
-          {this.renderCornerSquare(20)}
-          {this.renderCornerSquare(21)}
-          {this.renderCornerSquare(22)}
-          {this.renderCornerSquare(23)}
+          {this.renderSquare(18)}
+          {this.renderSquare(19)}
+          {this.renderSquare(20)}
+          {this.renderSquare(21)}
+          {this.renderSquare(22)}
+          {this.renderSquare(23)}
         </div>
         <div className="board-row">
-          {this.renderCornerSquare(24)}
-          {this.renderCornerSquare(25)}
-          {this.renderCornerSquare(26)}
-          {this.renderCornerSquare(27)}
-          {this.renderCornerSquare(28)}
-          {this.renderCornerSquare(29)}
+          {this.renderSquare(24)}
+          {this.renderSquare(25)}
+          {this.renderSquare(26)}
+          {this.renderSquare(27)}
+          {this.renderSquare(28)}
+          {this.renderSquare(29)}
         </div>
       </div>);
   }

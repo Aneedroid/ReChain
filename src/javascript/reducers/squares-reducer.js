@@ -1,7 +1,9 @@
 import { CHAIN_REACT, INIT, UPDATE_SQUARE } from '../actions/types';
 
 const initialState = {
-  squares: []
+  squares: [],
+  players: [0, 1],
+  currentPlayer: 0
 };
 
 export default function (state = initialState, action) {
@@ -14,23 +16,21 @@ export default function (state = initialState, action) {
       const id = action.id;
 
       if (id === 0 || id === (n - 1) || id === n * (m - 1) || id === (m * n) - 1) {
-        console.log('This is a CORNER square : ', id);
         possibleLimit = 1;
       }
       else if ((id > 0 && id < (n - 1)) || (id !== (n - 1) && (id !== n * m) && (id + 1) % n === 0) || (id > n * (m - 1) && id < n * m)
         || (id !== 0 && id !== n * (m - 1) && id % n === 0)) {
-        console.log('This is a SIDE square : ', id);
         possibleLimit = 2;
       }
       else {
-        console.log('This is a MIDDLE square : ', id);
         possibleLimit = 3;
       }
 
       const newSquare = {
         id: action.id,
         balls: 0,
-        limit: possibleLimit
+        limit: possibleLimit,
+        playerSquare: -1
       }
 
       if (!state.squares.indexOf(newSquare) > -1) {
@@ -42,30 +42,32 @@ export default function (state = initialState, action) {
 
     case UPDATE_SQUARE: {
       const newState = { ...state };
-      if (state.squares[action.id].balls <= newState.squares[action.id].limit)
-        newState.squares[action.id].balls = state.squares[action.id].balls + 1;
+      const id = action.id;
+
+      if (state.squares[id].playerSquare === -1 || state.currentPlayer === state.squares[id].playerSquare) {
+
+        if (state.squares[id].playerSquare === -1)
+          newState.squares[id].playerSquare = state.currentPlayer;
+
+        if (state.squares[id].balls <= state.squares[id].limit)
+          newState.squares[id].balls = state.squares[id].balls + 1;
+
+      }
+      else {
+        console.log('Broooooo, this is not your square!')
+      }
+
+      newState.currentPlayer = state.players[(state.currentPlayer + 1) % state.players.length]
 
       return newState;
     }
 
     case CHAIN_REACT: {
       const newState = { ...state };
-      // m = rows, n = columns
-
-      // const m = 3;
-      // const n = 3;
       const id = action.id;
 
       if (state.squares[id].balls = newState.squares[id].limit) {
-        // 0       ---> Left top
-        // n-1     ---> Right top
-        // n*(m-1) ---> Left bottom
-        // n*m     ---> Right bottom
-
-        console.log('ID : ', action.id);
-
         if (id === 0 || id === (n - 1) || id === n * (m - 1) || id === (m * n) - 1) {
-          console.log('This ID satisfied the corner squares condition!');
           let next_x = -1;
           let next_y = -1;
 
@@ -86,18 +88,17 @@ export default function (state = initialState, action) {
             next_y = id - n * 1;
           }
 
+          newState.squares[next_x].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_y].playerSquare = state.squares[id].playerSquare;
+
           newState.squares[id].balls = 0;
-          // Clear out balls in the blown square
-          // Populate it in the adjacent squares
+          newState.squares[id].playerSquare = -1;
+
           newState.squares[next_x].balls = state.squares[next_x].balls + 1;
           newState.squares[next_y].balls = state.squares[next_y].balls + 1;
-
-          console.log('New state: ', newState)
-
         }
         else if ((id > 0 && id < (n - 1)) || (id !== (n - 1) && (id !== n * m) && (id + 1) % n === 0)
           || (id > n * (m - 1) && id < n * m) || (id !== 0 && id !== n * (m - 1) && id % n === 0)) {
-          console.log('This ID satisfied the side squares condition!');
           let next_x = -1;
           let next_y = -1;
           let next_z = -1;
@@ -123,31 +124,37 @@ export default function (state = initialState, action) {
             next_z = id + (n * 1);
           }
 
+          newState.squares[next_x].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_y].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_z].playerSquare = state.squares[id].playerSquare;
+
           newState.squares[id].balls = 0;
-          // Clear out balls in the blown square
-          // Populate it in the adjacent squares
+          newState.squares[id].playerSquare = -1;
+
           newState.squares[next_x].balls = state.squares[next_x].balls + 1;
           newState.squares[next_y].balls = state.squares[next_y].balls + 1;
           newState.squares[next_z].balls = state.squares[next_z].balls + 1;
         }
-        // THIS IS THE ELSE CASE. :DDDD
         else {
-          console.log('This ID satisfied the Middle squares condition!');
           let next_x = id - (n * 1);
           let next_y = id + 1;
           let next_z = id + (n * 1);
           let next_a = id - 1;
 
+          newState.squares[next_x].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_y].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_z].playerSquare = state.squares[id].playerSquare;
+          newState.squares[next_a].playerSquare = state.squares[id].playerSquare;
+
           newState.squares[id].balls = 0;
-          // Clear out balls in the blown square
-          // Populate it in the adjacent squares
+          newState.squares[id].playerSquare = -1;
+
           newState.squares[next_x].balls = state.squares[next_x].balls + 1;
           newState.squares[next_y].balls = state.squares[next_y].balls + 1;
           newState.squares[next_z].balls = state.squares[next_z].balls + 1;
           newState.squares[next_a].balls = state.squares[next_a].balls + 1;
         }
       }
-      console.log('New state: ', newState);
       return newState;
     }
 

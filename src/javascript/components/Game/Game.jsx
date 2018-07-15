@@ -2,23 +2,15 @@ import React from 'react';
 import './Game.css';
 import Board from '../Board/Board'
 
-class Game extends React.Component{
-
-    // constructor(props){
-    //     super(props);
-    //   }
-
-    // componentDidMount(){
-
-    // }
-
-    render(){
-        return(
-            <div>
-                <Board/>
-            </div>
-        );
-    }
-}
+const Game = ({currentPlayer}) => {
+    const player = currentPlayer === 0? 'Blue' : 'Red'
+    const status = 'Player turn : ' +  player;
+    return (
+        <div>
+        <div className="status">{status}</div>
+        <Board classname={player} />
+    </div>
+    );
+  };
 
 export default Game;
