@@ -1,4 +1,4 @@
-.status {
+.status-blue {
   margin-bottom: 10px;
   background: white;
   background-color: #222;
@@ -7,7 +7,20 @@
   justify-content: center;
   align-items: center;
   padding: 25px;
-  color: white;
+  color: aqua;
+  font-size: 1.5em;
+  }
+
+.status-red {
+  margin-bottom: 10px;
+  background: white;
+  background-color: #222;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  color: tomato;
   font-size: 1.5em;
   }
 
