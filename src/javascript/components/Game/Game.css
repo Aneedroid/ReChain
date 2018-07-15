@@ -33,3 +33,7 @@
   padding: 25px;
   color: rebeccapurple;
 }
+
+.blur-board {
+  filter: blur(35px);
+}

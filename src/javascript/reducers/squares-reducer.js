@@ -4,7 +4,9 @@ const initialState = {
   squares: [],
   players: [0, 1],
   currentPlayer: 0,
-  stillSamePlayer: false
+  stillSamePlayer: false,
+  winner: null,
+  disableBoard: false
 };
 
 export default function (state = initialState, action) {
@@ -156,6 +158,30 @@ export default function (state = initialState, action) {
           newState.squares[next_a].balls = state.squares[next_a].balls + 1;
         }
       }
+
+      let red = 0;
+      let blue = 0;
+      let winner = null;
+
+      for (let i = 0; i < newState.squares.length; i++) {
+        if (newState.squares[i].playerSquare === 0) {
+          blue += newState.squares[i].balls;
+        }
+        if (newState.squares[i].playerSquare === 1) {
+          red += newState.squares[i].balls;
+        }
+      }
+
+      if (red + blue === Math.max(red, blue) && red !== blue && ((red + blue) > 2)) {
+        if (red === 0) {
+          winner = 'Blue';
+        }
+        else {
+          winner = 'Red';
+        }
+      }
+      newState.winner = winner;
+
       return newState;
     }
 
