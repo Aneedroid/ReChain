@@ -10,3 +10,13 @@
   color: white;
   font-size: 1.5em;
   }
+
+.same-player-message {
+  background: white;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  color: rebeccapurple;
+}

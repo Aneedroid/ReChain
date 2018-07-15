@@ -3,7 +3,8 @@ import { CHAIN_REACT, INIT, UPDATE_SQUARE } from '../actions/types';
 const initialState = {
   squares: [],
   players: [0, 1],
-  currentPlayer: 0
+  currentPlayer: 0,
+  stillSamePlayer: false
 };
 
 export default function (state = initialState, action) {
@@ -52,12 +53,12 @@ export default function (state = initialState, action) {
         if (state.squares[id].balls <= state.squares[id].limit)
           newState.squares[id].balls = state.squares[id].balls + 1;
 
+        newState.currentPlayer = state.players[(state.currentPlayer + 1) % state.players.length]
+        newState.stillSamePlayer = false;
       }
       else {
-        console.log('Broooooo, this is not your square!')
+        newState.stillSamePlayer = true;
       }
-
-      newState.currentPlayer = state.players[(state.currentPlayer + 1) % state.players.length]
 
       return newState;
     }
