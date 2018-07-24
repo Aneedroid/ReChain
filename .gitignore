@@ -1,13 +1,9 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# dependencies
+# DEPENDENCIES
 /node_modules
 
-# testing
-/coverage
-
-# production
-/build
+# FIREBASE
+.firebaserc
+firebase.json
 
 # misc
 .DS_Store
